@@ -1,7 +1,12 @@
 package com.machado.stockitapi;
 
+import com.machado.stockitapi.filters.AuthFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+
+import java.util.logging.Filter;
 
 @SpringBootApplication
 public class StockItApiApplication {
@@ -10,4 +15,12 @@ public class StockItApiApplication {
 		SpringApplication.run(StockItApiApplication.class, args);
 	}
 
+	@Bean
+	public FilterRegistrationBean<AuthFilter> filterFilterRegistrationBean() {
+		FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
+		AuthFilter authFilter = new AuthFilter();
+		registrationBean.setFilter(authFilter);
+		registrationBean.addUrlPatterns("/api/employees/*");
+		return registrationBean;
+	}
 }

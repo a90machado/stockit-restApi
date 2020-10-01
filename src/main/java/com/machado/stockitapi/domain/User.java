@@ -11,20 +11,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Table(name="users")
-public class User {
+public class User extends Employee {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String employeeNumber;
     private String password;
-
     public User(UserForm userForm) {
-        this.firstName = userForm.getFirstName();
-        this.lastName = userForm.getLastName();
-        this.employeeNumber = userForm.getEmployeeNumber();
+        super(userForm);
         this.password = userForm.getPassword();
     }
 }
