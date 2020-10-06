@@ -10,17 +10,25 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @Data
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name="employees")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column(unique = true, nullable = false)
     private String employeeNumber;
+    @Column(nullable = false)
     private String position;
+    @Column(nullable = false)
     private String localization;
+    @Column(nullable = false)
     private Date startDate;
+    @Column(nullable = false)
     private Date endDate;
     //private Rent rent;
 

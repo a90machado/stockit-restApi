@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Table(name="users")
 public class User extends Employee {
 
+    @Column(nullable = false)
     private String password;
     public User(UserForm userForm) {
         super(userForm);
