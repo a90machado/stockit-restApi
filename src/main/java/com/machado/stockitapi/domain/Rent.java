@@ -18,5 +18,8 @@ public class Rent {
     @Column(nullable = true)
     @OneToMany(mappedBy="rent")
     private List<Product> products;
+    @OneToOne
+    @JoinColumn(name = "employee_id", nullable = true)
+    private Employee employee;
 
 }

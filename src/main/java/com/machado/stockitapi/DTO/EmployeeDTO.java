@@ -13,8 +13,8 @@ public class EmployeeDTO {
     private String firstName;
     private String lastName;
     private String employeeNumber;
-    private String position;
-    private String localization;
+    private String role;
+    private String market;
     private Date startDate;
     private Date endDate;
     // private Rent rent;
@@ -24,8 +24,8 @@ public class EmployeeDTO {
         this.firstName = employee.getFirstName();;
         this.lastName = employee.getLastName();
         this.employeeNumber = employee.getEmployeeNumber();
-        this.position = employee.getPosition();
-        this.localization = employee.getLocalization();
+        this.role = employee.getRole();
+        this.market = employee.getMarket();
         this.startDate = employee.getStartDate();
         this.endDate = employee.getEndDate();
     }
@@ -35,8 +35,8 @@ public class EmployeeDTO {
         this.firstName = user.getFirstName();;
         this.lastName = user.getLastName();
         this.employeeNumber = user.getEmployeeNumber();
-        this.position = user.getPosition();
-        this.localization = user.getLocalization();
+        this.role = user.getRole();
+        this.market = user.getMarket();
         this.startDate = user.getStartDate();
         this.endDate = user.getEndDate();
     }

@@ -1,5 +1,6 @@
 package com.machado.stockitapi.domain;
 
+import com.machado.stockitapi.enums.CredentialType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,24 +9,21 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Data
-@Table(name="products")
-public class Product {
-
+@Table(name="credentials")
+public class Credential {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
-    private String name;
+    private CredentialType type;
     @Column(nullable = false)
-    private String description;
+    private String username;
     @Column(nullable = true)
-    private String serialNumber;
+    private String password;
     @Column(nullable = true)
     private String notes;
-    @Column(nullable = false)
-    private boolean outOfService;
     @ManyToOne
-    @JoinColumn(name="rent_id", nullable=true)
-    private Rent rent;
+    @JoinColumn(name = "employee_id", nullable = true)
+    private Employee employee;
 
 }

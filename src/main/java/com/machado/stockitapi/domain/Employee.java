@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -23,21 +24,25 @@ public class Employee {
     @Column(unique = true, nullable = false)
     private String employeeNumber;
     @Column(nullable = false)
-    private String position;
+    private String role;
     @Column(nullable = false)
-    private String localization;
+    private String market;
     @Column(nullable = false)
     private Date startDate;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date endDate;
-    //private Rent rent;
+    @Column(nullable = true)
+    @OneToMany(mappedBy = "employee")
+    private List<Credential> credentials;
+    @OneToOne(mappedBy = "employee")
+    private Rent rent;
 
     public Employee(UserForm userForm) {
         this.firstName = userForm.getFirstName();
         this.lastName = userForm.getLastName();
         this.employeeNumber = userForm.getEmployeeNumber();
-        this.position = userForm.getPosition();
-        this.localization = userForm.getLocalization();
+        this.role = userForm.getRole();
+        this.market = userForm.getMarket();
         this.startDate = userForm.getStartDate();
         this.endDate = null;
     }

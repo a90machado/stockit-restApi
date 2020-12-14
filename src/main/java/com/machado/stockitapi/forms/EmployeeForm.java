@@ -10,8 +10,8 @@ public class EmployeeForm {
     private String firstName;
     private String lastName;
     private String employeeNumber;
-    private String position;
-    private String localization;
+    private String role;
+    private String market;
     private Date startDate;
-    // private Rent rent;
+
 }
