@@ -1,8 +1,8 @@
 package com.machado.stockitapi.resources;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.machado.stockitapi.DTO.EmployeeDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,5 +13,10 @@ public class EmployeeResource {
     @GetMapping("")
     public String getAllEmployees(HttpServletRequest request) {
         return "Authenticated!";
+    }
+
+    @PostMapping("")
+    public ResponseEntity<EmployeeDTO> createNewEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        
     }
 }
