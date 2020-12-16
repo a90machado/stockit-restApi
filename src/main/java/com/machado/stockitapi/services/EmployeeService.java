@@ -10,9 +10,6 @@ import java.util.List;
 
 public interface EmployeeService {
     List<Employee> getAllEmployees();
-    EmployeeDTO getEmployeeByEmployeeNumber(String employeeNumber) throws EtResourceNotFoundException;
-    EmployeeDTO addEmployee(EmployeeForm employeeForm) throws EtBadRequestException;
-    EmployeeDTO updateEmployee(EmployeeForm employeeForm) throws EtBadRequestException;
-    EmployeeDTO deactivateEmployee(EmployeeForm employeeForm) throws EtResourceNotFoundException;
+    EmployeeDTO createNewEmployee(EmployeeForm employeeForm) throws EtBadRequestException;
 }
 

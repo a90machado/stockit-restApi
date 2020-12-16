@@ -1,5 +1,6 @@
 package com.machado.stockitapi.domain;
 
+import com.machado.stockitapi.forms.EmployeeForm;
 import com.machado.stockitapi.forms.UserForm;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,6 +45,16 @@ public class Employee {
         this.role = userForm.getRole();
         this.market = userForm.getMarket();
         this.startDate = userForm.getStartDate();
+        this.endDate = null;
+    }
+
+    public Employee(EmployeeForm employeeForm) {
+        this.firstName = employeeForm.getFirstName();
+        this.lastName = employeeForm.getLastName();
+        this.employeeNumber = employeeForm.getEmployeeNumber();
+        this.role = employeeForm.getRole();
+        this.market = employeeForm.getMarket();
+        this.startDate = employeeForm.getStartDate();
         this.endDate = null;
     }
 }

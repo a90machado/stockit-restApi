@@ -1,15 +1,20 @@
 package com.machado.stockitapi.DTO;
 
+import com.machado.stockitapi.domain.Credential;
 import com.machado.stockitapi.domain.Employee;
+import com.machado.stockitapi.domain.Rent;
 import com.machado.stockitapi.domain.User;
 import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class EmployeeDTO {
 
-    private Long id;
     private String firstName;
     private String lastName;
     private String employeeNumber;
@@ -17,10 +22,10 @@ public class EmployeeDTO {
     private String market;
     private Date startDate;
     private Date endDate;
-    // private Rent rent;
+    private List<Credential> credentials;
+    private Rent rent;
 
     public EmployeeDTO(Employee employee) {
-        this.id = employee.getId();
         this.firstName = employee.getFirstName();;
         this.lastName = employee.getLastName();
         this.employeeNumber = employee.getEmployeeNumber();
@@ -31,7 +36,6 @@ public class EmployeeDTO {
     }
 
     public EmployeeDTO(User user) {
-        this.id = user.getId();
         this.firstName = user.getFirstName();;
         this.lastName = user.getLastName();
         this.employeeNumber = user.getEmployeeNumber();

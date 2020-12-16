@@ -17,25 +17,5 @@ public class StockItApiApplication {
 		SpringApplication.run(StockItApiApplication.class, args);
 	}
 
-	@Bean
-	public FilterRegistrationBean<CorsFilter> corsFilterFilterRegistrationBean() {
-		FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>();
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.addAllowedOrigin("*");
-		corsConfiguration.addAllowedHeader("*");
-		source.registerCorsConfiguration("/**", corsConfiguration);
-		registrationBean.setFilter(new CorsFilter(source));
-		registrationBean.setOrder(0);
-		return registrationBean;
-	}
 
-	@Bean
-	public FilterRegistrationBean<AuthFilter> filterFilterRegistrationBean() {
-		FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
-		AuthFilter authFilter = new AuthFilter();
-		registrationBean.setFilter(authFilter);
-		registrationBean.addUrlPatterns("/api/employees/*");
-		return registrationBean;
-	}
 }
