@@ -1,5 +1,6 @@
 package com.machado.stockitapi.domain;
 
+import com.machado.stockitapi.DTO.ProductDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,5 +28,15 @@ public class Product {
     @ManyToOne
     @JoinColumn(name="rent_id", nullable=true)
     private Rent rent;
+
+    public Product(ProductDTO productDTO) {
+        this.id = productDTO.getId();
+        this.name = productDTO.getName();
+        this.description = productDTO.getDescription();
+        this.serialNumber = productDTO.getSerialNumber();
+        this.notes = productDTO.getNotes();
+        this.outOfService = productDTO.isOutOfService();
+        this.rent = new Rent(productDTO.getRent());
+    }
 
 }

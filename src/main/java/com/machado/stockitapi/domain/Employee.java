@@ -1,11 +1,11 @@
 package com.machado.stockitapi.domain;
 
-import com.machado.stockitapi.forms.EmployeeForm;
-import com.machado.stockitapi.forms.UserForm;
+import com.machado.stockitapi.DTO.EmployeeDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,23 +38,31 @@ public class Employee {
     @OneToOne(mappedBy = "employee")
     private Rent rent;
 
-    public Employee(UserForm userForm) {
-        this.firstName = userForm.getFirstName();
-        this.lastName = userForm.getLastName();
-        this.employeeNumber = userForm.getEmployeeNumber();
-        this.role = userForm.getRole();
-        this.market = userForm.getMarket();
-        this.startDate = userForm.getStartDate();
-        this.endDate = null;
+    public Employee(Long id, String firstName, String lastName, String employeeNumber, String role, String market, Date startDate, Date endDate, List<Credential> credentials, Rent rent) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.employeeNumber = employeeNumber;
+        this.role = role;
+        this.market = market;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.credentials = credentials;
+        this.rent = rent;
     }
 
-    public Employee(EmployeeForm employeeForm) {
-        this.firstName = employeeForm.getFirstName();
-        this.lastName = employeeForm.getLastName();
-        this.employeeNumber = employeeForm.getEmployeeNumber();
-        this.role = employeeForm.getRole();
-        this.market = employeeForm.getMarket();
-        this.startDate = employeeForm.getStartDate();
-        this.endDate = null;
+    public Employee(EmployeeDTO employeeDTO) {
+        this.id = employeeDTO.getId();
+        this.firstName = employeeDTO.getFirstName();
+        this.lastName = employeeDTO.getLastName();
+        this.employeeNumber = employeeDTO.getEmployeeNumber();
+        this.role = employeeDTO.getRole();
+        this.market = employeeDTO.getMarket();
+        this.startDate = employeeDTO.getStartDate();
+        this.endDate = employeeDTO.getEndDate();
+        if (employeeDTO.getRent() != null) {
+            this.rent = new Rent(employeeDTO.getRent());
+        }
     }
+
 }

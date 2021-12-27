@@ -3,8 +3,6 @@ package com.machado.stockitapi.services;
 import com.machado.stockitapi.DTO.EmployeeDTO;
 import com.machado.stockitapi.domain.Employee;
 import com.machado.stockitapi.exceptions.EtBadRequestException;
-import com.machado.stockitapi.forms.EmployeeForm;
-import com.machado.stockitapi.forms.EmployeeUpdateForm;
 import com.machado.stockitapi.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,54 +30,40 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDTO createNewEmployee(EmployeeForm employeeForm) throws EtBadRequestException {
-        Optional<Employee> searchEmployee = this.employeeRepository.findByEmployeeNumber(employeeForm.getEmployeeNumber());
+    public EmployeeDTO createNewEmployee(EmployeeDTO employeeDTO) throws EtBadRequestException {
+        Optional<Employee> searchEmployee = this.employeeRepository.findByEmployeeNumber(employeeDTO.getEmployeeNumber());
         if (searchEmployee.isPresent()) {
             throw  new EtBadRequestException("Employee already exists.");
         } else {
-            Employee newEmployee = this.employeeRepository.save(new Employee(employeeForm));
+            Employee newEmployee = this.employeeRepository.save(new Employee(employeeDTO));
             return new EmployeeDTO(newEmployee);
         }
     }
 
     @Override
-    public EmployeeDTO getEmployeeByNumber(String employeeNumber) {
-        Optional<Employee> searchEmployee = this.employeeRepository.findByEmployeeNumber(employeeNumber);
-        if (searchEmployee.isPresent()) {
-            return new EmployeeDTO(searchEmployee.get());
-
-        } else {
+    public EmployeeDTO updateEmployee(EmployeeDTO employeeDTO) throws EtBadRequestException {
+        Optional<Employee> updateEmployee = this.employeeRepository.findById(employeeDTO.getId());
+        if (!updateEmployee.isPresent()) {
             throw  new EtBadRequestException("Employee not found.");
+        } else {
+            if (updateEmployee.get().getEmployeeNumber() != employeeDTO.getEmployeeNumber()) {
+                Optional<Employee> checkIfEmployeeNumber = this.employeeRepository.findByEmployeeNumber(employeeDTO.getEmployeeNumber());
+                if (checkIfEmployeeNumber.isPresent()) {
+                    throw  new EtBadRequestException("Employee number cannot be assigned to this employee.");
+                }
+            }
+            Employee saveEmployee = this.employeeRepository.save(new Employee(employeeDTO));
+            return new EmployeeDTO(saveEmployee);
         }
     }
 
     @Override
-    public EmployeeDTO updateEmployee(EmployeeUpdateForm employeeForm) {
-        Optional<Employee> searchEmployee = this.employeeRepository.findByEmployeeNumber(employeeForm.getOldEmployeeNumber());
-        if (searchEmployee.isPresent()) {
-            Employee employee = searchEmployee.get();
-            if (!employee.getEmployeeNumber().equals(employeeForm.getEmployeeNumber())){
-                employee.setEmployeeNumber(employeeForm.getEmployeeNumber());
-            }
-            if (!employee.getFirstName().equals(employeeForm.getFirstName())){
-                employee.setFirstName(employeeForm.getFirstName());
-            }
-            if (!employee.getLastName().equals(employeeForm.getLastName())){
-                employee.setLastName(employeeForm.getLastName());
-            }
-            if (!employee.getStartDate().equals(employeeForm.getStartDate())){
-                employee.setStartDate(employeeForm.getStartDate());
-            }
-            if (!employee.getRole().equals(employeeForm.getRole())){
-                employee.setRole(employeeForm.getRole());
-            }
-            if (!employee.getMarket().equals(employeeForm.getMarket())){
-                employee.setMarket(employeeForm.getMarket());
-            }
-            return new EmployeeDTO(this.employeeRepository.save(employee));
-
-        } else {
-            throw  new EtBadRequestException("Employee not found, cannot be updated.");
+    public EmployeeDTO getEmployeeById(Long id) {
+        Optional<Employee> searchEmployee = this.employeeRepository.findById(id);
+        if (!searchEmployee.isPresent()) {
+            throw  new EtBadRequestException("Employee not found.");
         }
+        return new EmployeeDTO(employeeRepository.getOne(id));
     }
+
 }

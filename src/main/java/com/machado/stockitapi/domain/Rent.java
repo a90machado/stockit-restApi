@@ -1,9 +1,11 @@
 package com.machado.stockitapi.domain;
 
+import com.machado.stockitapi.DTO.RentDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,5 +23,15 @@ public class Rent {
     @OneToOne
     @JoinColumn(name = "employee_id", nullable = true)
     private Employee employee;
+
+    public Rent(RentDTO rentDTO) {
+        this.id = rentDTO.getId();
+        List<Product> products = new ArrayList<>();
+        rentDTO.getProducts().forEach(p -> {
+            products.add(new Product(p));
+        });
+        this.products = products;
+        this.employee = new Employee(rentDTO.getEmployee());
+    }
 
 }
