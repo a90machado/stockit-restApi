@@ -26,8 +26,18 @@ public class Product {
     @Column(nullable = false)
     private boolean outOfService;
     @ManyToOne
-    @JoinColumn(name="rent_id", nullable=true)
-    private Rent rent;
+    @JoinColumn(name = "employee_id", nullable = true)
+    private Employee employee;
+
+    public Product(Long id, String name, String description, String serialNumber, String notes, boolean outOfService, Employee employee) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.serialNumber = serialNumber;
+        this.notes = notes;
+        this.outOfService = outOfService;
+        this.employee = employee;
+    }
 
     public Product(ProductDTO productDTO) {
         this.id = productDTO.getId();
@@ -36,7 +46,7 @@ public class Product {
         this.serialNumber = productDTO.getSerialNumber();
         this.notes = productDTO.getNotes();
         this.outOfService = productDTO.isOutOfService();
-        this.rent = new Rent(productDTO.getRent());
+        this.employee = new Employee(productDTO.getEmployeeDTO());
     }
 
 }

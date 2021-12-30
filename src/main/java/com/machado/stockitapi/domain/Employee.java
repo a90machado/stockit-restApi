@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,10 +34,11 @@ public class Employee {
     @Column(nullable = true)
     @OneToMany(mappedBy = "employee")
     private List<Credential> credentials;
-    @OneToOne(mappedBy = "employee")
-    private Rent rent;
+    @Column(nullable = true)
+    @OneToMany(mappedBy = "employee")
+    private List<Product> products;
 
-    public Employee(Long id, String firstName, String lastName, String employeeNumber, String role, String market, Date startDate, Date endDate, List<Credential> credentials, Rent rent) {
+    public Employee(Long id, String firstName, String lastName, String employeeNumber, String role, String market, Date startDate, Date endDate, List<Credential> credentials, List<Product> products) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -48,7 +48,7 @@ public class Employee {
         this.startDate = startDate;
         this.endDate = endDate;
         this.credentials = credentials;
-        this.rent = rent;
+        this.products = products;
     }
 
     public Employee(EmployeeDTO employeeDTO) {
@@ -60,9 +60,6 @@ public class Employee {
         this.market = employeeDTO.getMarket();
         this.startDate = employeeDTO.getStartDate();
         this.endDate = employeeDTO.getEndDate();
-        if (employeeDTO.getRent() != null) {
-            this.rent = new Rent(employeeDTO.getRent());
-        }
     }
 
 }

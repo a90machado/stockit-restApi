@@ -1,7 +1,6 @@
 package com.machado.stockitapi.DTO;
 
 import com.machado.stockitapi.domain.Product;
-import com.machado.stockitapi.domain.Rent;
 import lombok.Data;
 
 @Data
@@ -12,7 +11,7 @@ public class ProductDTO {
     private String serialNumber;
     private String notes;
     private boolean outOfService;
-    private RentDTO rent;
+    private EmployeeDTO employeeDTO;
 
     public ProductDTO(Product product) {
         this.id = product.getId();
@@ -21,6 +20,16 @@ public class ProductDTO {
         this.serialNumber = product.getSerialNumber();
         this.notes = product.getNotes();
         this.outOfService = product.isOutOfService();
-        this.rent = new RentDTO(product.getRent());
+        this.employeeDTO = new EmployeeDTO(product.getEmployee());
+    }
+
+    public ProductDTO(Long id, String name, String description, String serialNumber, String notes, boolean outOfService, EmployeeDTO employeeDTO) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.serialNumber = serialNumber;
+        this.notes = notes;
+        this.outOfService = outOfService;
+        this.employeeDTO = employeeDTO;
     }
 }
