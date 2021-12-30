@@ -38,4 +38,9 @@ public class ProductResource {
         return ResponseEntity.ok(productService.getProductsOutOfService());
     }
 
+    @GetMapping("/active")
+    public ResponseEntity<List<ProductDTO>> getProductsInService() {
+        return ResponseEntity.ok(productService.getProductsInService());
+    }
+
 }

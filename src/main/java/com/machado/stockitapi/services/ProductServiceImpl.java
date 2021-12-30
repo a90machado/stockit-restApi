@@ -69,6 +69,18 @@ public class ProductServiceImpl implements ProductService  {
     }
 
     @Override
+    public List<ProductDTO> getProductsInService() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        products.forEach(p -> {
+            if (!p.isOutOfService()) {
+                productDTOS.add(new ProductDTO(p));
+            }
+        });
+        return productDTOS;
+    }
+
+    @Override
     public void moveProductsToOtherEmployee(List<ProductDTO> productDTOS) {
         productDTOS.forEach(p -> {
             Optional<Employee> updateEmployee = this.employeeRepository.findById(p.getEmployeeDTO().getId());
