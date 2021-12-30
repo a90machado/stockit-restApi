@@ -10,6 +10,6 @@ public interface EmployeeService {
     EmployeeDTO createNewEmployee(EmployeeDTO employeeDTO) throws EtBadRequestException;
     EmployeeDTO updateEmployee(EmployeeDTO employeeDTO) throws EtBadRequestException;
     EmployeeDTO getEmployeeById(Long id);
-
+    List<EmployeeDTO> getAllEmployeesInactive();
 }
 

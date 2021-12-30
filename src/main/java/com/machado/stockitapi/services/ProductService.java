@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductDTO> getProductsByEmployee(EmployeeDTO employeeDTO) throws EtBadRequestException;
-    ProductDTO addNewProduct(ProductDTO productDTO)  throws EtBadRequestException;
+    ProductDTO addNewProduct(ProductDTO productDTO) throws EtBadRequestException;
+    List<ProductDTO> getProductsOutOfService();
+    void moveProductsToOtherEmployee(List<ProductDTO> productDTOS) throws EtBadRequestException;
 }

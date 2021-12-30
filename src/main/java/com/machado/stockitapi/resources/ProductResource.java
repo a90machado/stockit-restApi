@@ -19,13 +19,23 @@ public class ProductResource {
 
     @PostMapping("")
     public ResponseEntity<ProductDTO> addNewProductToEmployee(@RequestBody ProductDTO productDTO) {
-        System.out.println(productDTO.getEmployeeDTO());
         return ResponseEntity.ok(productService.addNewProduct(productDTO));
     }
 
     @PostMapping("/employee")
     public ResponseEntity<List<ProductDTO>> getProductsByEmployee(@RequestBody EmployeeDTO employeeDTO) {
         return ResponseEntity.ok(productService.getProductsByEmployee(employeeDTO));
+    }
+
+    @PostMapping("/move")
+    public ResponseEntity<Void> moveProductsToOtherEmployee(@RequestBody List<ProductDTO> productDTOS) {
+        productService.moveProductsToOtherEmployee(productDTOS);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<ProductDTO>> getProductsOutOfService() {
+        return ResponseEntity.ok(productService.getProductsOutOfService());
     }
 
 }

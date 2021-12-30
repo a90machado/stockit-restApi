@@ -38,7 +38,9 @@ public class ProductServiceImpl implements ProductService  {
 
             List<ProductDTO> productsToReturn = new ArrayList<>();
             products.forEach(p -> {
-                productsToReturn.add(new ProductDTO(p));
+                if (!p.isOutOfService()) {
+                    productsToReturn.add(new ProductDTO(p));
+                }
             });
             return productsToReturn;
         }
@@ -52,5 +54,29 @@ public class ProductServiceImpl implements ProductService  {
         } else {
             return new ProductDTO(productRepository.save(new Product(productDTO)));
         }
+    }
+
+    @Override
+    public List<ProductDTO> getProductsOutOfService() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        products.forEach(p -> {
+            if (p.isOutOfService()) {
+                productDTOS.add(new ProductDTO(p));
+            }
+        });
+        return productDTOS;
+    }
+
+    @Override
+    public void moveProductsToOtherEmployee(List<ProductDTO> productDTOS) {
+        productDTOS.forEach(p -> {
+            Optional<Employee> updateEmployee = this.employeeRepository.findById(p.getEmployeeDTO().getId());
+            if (!updateEmployee.isPresent()) {
+                throw  new EtBadRequestException("Employee not found.");
+            } else {
+                productRepository.save(new Product(p));
+            }
+        });
     }
 }

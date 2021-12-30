@@ -24,7 +24,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees = this.employeeRepository.findAll();
         List<EmployeeDTO> employeeDTOS = new ArrayList<>();
         for (Employee e : employees) {
-            employeeDTOS.add(new EmployeeDTO(e));
+            if(e.getEndDate() == null) {
+                employeeDTOS.add(new EmployeeDTO(e));
+            }
         }
         return employeeDTOS;
     }
@@ -46,9 +48,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (!updateEmployee.isPresent()) {
             throw  new EtBadRequestException("Employee not found.");
         } else {
-            if (updateEmployee.get().getEmployeeNumber() != employeeDTO.getEmployeeNumber()) {
+            if (!updateEmployee.get().getEmployeeNumber().equals(employeeDTO.getEmployeeNumber())) {
                 Optional<Employee> checkIfEmployeeNumber = this.employeeRepository.findByEmployeeNumber(employeeDTO.getEmployeeNumber());
                 if (checkIfEmployeeNumber.isPresent()) {
+                    System.out.println(updateEmployee.get().getEmployeeNumber() + " On database");
+                    System.out.println(checkIfEmployeeNumber.get().getEmployeeNumber() + " On check from object");
                     throw  new EtBadRequestException("Employee number cannot be assigned to this employee.");
                 }
             }
@@ -64,6 +68,18 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw  new EtBadRequestException("Employee not found.");
         }
         return new EmployeeDTO(employeeRepository.getOne(id));
+    }
+
+    @Override
+    public List<EmployeeDTO> getAllEmployeesInactive() {
+        List<Employee> employees = this.employeeRepository.findAll();
+        List<EmployeeDTO> employeeDTOS = new ArrayList<>();
+        for (Employee e : employees) {
+            if(e.getEndDate() != null) {
+                employeeDTOS.add(new EmployeeDTO(e));
+            }
+        }
+        return employeeDTOS;
     }
 
 }

@@ -26,6 +26,11 @@ public class EmployeeResource {
         return ResponseEntity.ok(employeeService.getAllEmployees());
     }
 
+    @GetMapping("/inactive")
+    public ResponseEntity<List<EmployeeDTO>> getAllEmployeesInactive() {
+        return ResponseEntity.ok(employeeService.getAllEmployeesInactive());
+    }
+
     @PostMapping("")
     public ResponseEntity<EmployeeDTO> createNewEmployee(@RequestBody EmployeeDTO employeeDTO) {
         return ResponseEntity.ok(employeeService.createNewEmployee(employeeDTO));
