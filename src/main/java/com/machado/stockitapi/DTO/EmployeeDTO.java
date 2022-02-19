@@ -4,6 +4,7 @@ package com.machado.stockitapi.DTO;
 import com.machado.stockitapi.domain.Employee;
 import lombok.Data;
 
+import javax.persistence.Column;
 import java.util.Date;
 
 @Data
@@ -13,20 +14,26 @@ public class EmployeeDTO {
     private String firstName;
     private String lastName;
     private String employeeNumber;
-    private String role;
-    private String market;
+    private String jobTitle;
+    private String department;
+    private String officeLocation;
+    private String phoneNumber;
+    private String email;
     private Date startDate;
     private Date endDate;
 
     public EmployeeDTO(){}
 
-    public EmployeeDTO(Long id, String firstName, String lastName, String employeeNumber, String role, String market, Date startDate, Date endDate) {
+    public EmployeeDTO(Long id, String firstName, String lastName, String employeeNumber, String jobTitle, String department, String officeLocation, String phoneNumber, String email, Date startDate, Date endDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.employeeNumber = employeeNumber;
-        this.role = role;
-        this.market = market;
+        this.jobTitle = jobTitle;
+        this.department = department;
+        this.officeLocation = officeLocation;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -36,8 +43,11 @@ public class EmployeeDTO {
         this.firstName = employee.getFirstName();
         this.lastName = employee.getLastName();
         this.employeeNumber = employee.getEmployeeNumber();
-        this.role = employee.getRole();
-        this.market = employee.getMarket();
+        this.jobTitle = employee.getJobTitle();
+        this.department = employee.getDepartment();
+        this.officeLocation = employee.getOfficeLocation();
+        this.phoneNumber = employee.getPhoneNumber();
+        this.email = employee.getEmail();
         this.startDate = employee.getStartDate();
         this.endDate = employee.getEndDate();
     }

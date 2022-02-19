@@ -51,8 +51,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             if (!updateEmployee.get().getEmployeeNumber().equals(employeeDTO.getEmployeeNumber())) {
                 Optional<Employee> checkIfEmployeeNumber = this.employeeRepository.findByEmployeeNumber(employeeDTO.getEmployeeNumber());
                 if (checkIfEmployeeNumber.isPresent()) {
-                    System.out.println(updateEmployee.get().getEmployeeNumber() + " On database");
-                    System.out.println(checkIfEmployeeNumber.get().getEmployeeNumber() + " On check from object");
                     throw  new EtBadRequestException("Employee number cannot be assigned to this employee.");
                 }
             }

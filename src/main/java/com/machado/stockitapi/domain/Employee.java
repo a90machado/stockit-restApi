@@ -24,9 +24,15 @@ public class Employee {
     @Column(unique = true, nullable = false)
     private String employeeNumber;
     @Column(nullable = false)
-    private String role;
+    private String jobTitle;
     @Column(nullable = false)
-    private String market;
+    private String department;
+    @Column(nullable = false)
+    private String officeLocation;
+    @Column(nullable = false)
+    private String phoneNumber;
+    @Column(nullable = false)
+    private String email;
     @Column(nullable = false)
     private Date startDate;
     @Column(nullable = true)
@@ -38,13 +44,16 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     private List<Product> products;
 
-    public Employee(Long id, String firstName, String lastName, String employeeNumber, String role, String market, Date startDate, Date endDate, List<Credential> credentials, List<Product> products) {
+    public Employee(Long id, String firstName, String lastName, String employeeNumber, String jobTitle, String department, String officeLocation, String phoneNumber, String email, Date startDate, Date endDate, List<Credential> credentials, List<Product> products) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.employeeNumber = employeeNumber;
-        this.role = role;
-        this.market = market;
+        this.jobTitle = jobTitle;
+        this.department = department;
+        this.officeLocation = officeLocation;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
         this.startDate = startDate;
         this.endDate = endDate;
         this.credentials = credentials;
@@ -56,8 +65,11 @@ public class Employee {
         this.firstName = employeeDTO.getFirstName();
         this.lastName = employeeDTO.getLastName();
         this.employeeNumber = employeeDTO.getEmployeeNumber();
-        this.role = employeeDTO.getRole();
-        this.market = employeeDTO.getMarket();
+        this.jobTitle = employeeDTO.getJobTitle();
+        this.department = employeeDTO.getDepartment();
+        this.officeLocation = employeeDTO.getOfficeLocation();
+        this.phoneNumber = employeeDTO.getPhoneNumber();
+        this.email = employeeDTO.getEmail();
         this.startDate = employeeDTO.getStartDate();
         this.endDate = employeeDTO.getEndDate();
     }
